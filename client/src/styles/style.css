@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+.App {
+  background-color: lightblue;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+}
+
+.header {
+  background: navy;
+  color: white;
+}
+
+.header a {
+  margin: 16px;
+  color: white;
+}
+
+.main {
+  padding: 10px;
+  background: #ccc;
+}
+
+/* Main Component */
+
+.values {
+  margin: 16px;
+  background: yellow;
+}
+
+.value {
+  margin-top: 10px;
+  border-top: 1px dashed black;
+}
+
+.form {
+  margin-top: 20px;
+}
