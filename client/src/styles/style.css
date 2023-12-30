@@ -13,13 +13,11 @@ h1 {
 }
 
 .header {
-  background: navy;
-  color: white;
+  background: lightgrey;
 }
 
 .header a {
   margin: 16px;
-  color: white;
 }
 
 .main {
