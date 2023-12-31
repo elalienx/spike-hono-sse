@@ -3,10 +3,14 @@ import { useState, useEffect } from "react";
 
 // Project files
 import "./styles/style.css";
+import ItemLicencePlate from "./components/ItemLicencePlate";
+import { useLicence } from "./state/LicenceContext";
 
 export default function App() {
+  // Global state
+  const { licences, setLicences } = useLicence();
+
   // Local state
-  const [data, setData] = useState([]);
   const [licence, setLicence] = useState("");
 
   // Properties
@@ -16,7 +20,7 @@ export default function App() {
   useEffect(() => {
     fetch(`${endpoint}/all`)
       .then((response) => response.json())
-      .then((result) => setData(result.rows.map((row) => row.number)));
+      .then((result) => setLicences(result.rows.map((row) => row.number)));
   }, []);
 
   async function onSubmit(event) {
@@ -29,15 +33,13 @@ export default function App() {
 
     await fetch(endpoint, options);
     event.preventDefault();
-    setData([...data, licence]);
+    setLicences([...licences, licence]);
     setLicence("");
   }
 
   // Components
   const Items = data.map((item, index) => (
-    <div key={index} className="item">
-      🚔 {item}
-    </div>
+    <ItemLicencePlate key={index} item={item} />
   ));
 
   return (
