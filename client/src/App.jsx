@@ -10,19 +10,16 @@ export default function App() {
   const [licence, setLicence] = useState("");
 
   // Properties
-  const endpoint = "/api/values/all"; // 🔔 IMPORTANT: We will use nginx to redirect it to the proper URL
+  const endpoint = "/api/values"; // 🔔 IMPORTANT: We will use nginx to redirect it to the proper URL
 
   // Methods
   useEffect(() => {
-    fetch(endpoint)
+    fetch(`${endpoint}/all`)
       .then((response) => response.json())
       .then((result) => setData(result.rows.map((row) => row.number)));
   }, []);
 
   async function onSubmit(event) {
-    event.preventDefault();
-
-    const endpoint = "/api/values";
     const item = { value: licence };
     const options = {
       method: "POST",
@@ -31,7 +28,7 @@ export default function App() {
     };
 
     await fetch(endpoint, options);
-
+    event.preventDefault();
     setData([...data, licence]);
     setLicence("");
   }
@@ -39,19 +36,22 @@ export default function App() {
   // Components
   const Items = data.map((item, index) => (
     <div key={index} className="item">
-      SWE-{item}
+      🚔 {item}
     </div>
   ));
 
   return (
     <div className="App">
-      <h1 className="title">Licence Plates 🚗</h1>
+      <h1 className="title">Car licence plates</h1>
       {Items}
       <hr />
       <form className="form" onSubmit={(event) => onSubmit(event)}>
-        <label>Register new car (only numbers):</label>
+        <label>Register new car:</label>
         <input
+          type="number"
+          placeholder="555"
           value={licence}
+          required
           onChange={(event) => setLicence(event.target.value)}
         />
         <button>Submit</button>
