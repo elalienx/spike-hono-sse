@@ -1,34 +1,9 @@
-body {
-  margin: 0;
-}
-
-h1 {
-  margin: 0;
-}
-
 .App {
   font-family: Helvetica, Arial, sans-serif;
-  height: 100vh;
 }
 
-.header {
-  display: flex;
-  gap: 16px;
-  margin: 16px;
-  align-items: center;
-}
-
-.header h1 {
-  margin-right: auto;
-}
-
-#home {
-  margin: 16px;
-}
-
-.value {
-  background: yellow;
+.item {
+  background: lightgray;
   padding: 8px;
-  margin-top: 10px;
-  border-top: 1px dashed black;
+  border: dashed 1px black;
 }
