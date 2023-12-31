@@ -30,26 +30,23 @@ export default function Home() {
     getAllNumbers();
   }, []);
 
+  // Components
+  const Items = values.map((value) => <div className="value">{value}</div>);
+
   return (
     <div id="home">
-      <button onClick={getAllNumbers}>Get all numbers</button>
-      <br />
-      <span className="title">Values</span>
-      <div className="values">
-        {values.map((value) => (
-          <div className="value">{value}</div>
-        ))}
-      </div>
+      <h2 className="title">Values</h2>
+      {Items}
+      <hr />
       <form className="form" onSubmit={saveNumber}>
         <label>Enter your value: </label>
         <input
           value={value}
-          onChange={(event) => {
-            setValue(event.target.value);
-          }}
+          onChange={(event) => setValue(event.target.value)}
         />
         <button>Submit</button>
       </form>
+      <button onClick={getAllNumbers}>Get all numbers</button>
     </div>
   );
 }

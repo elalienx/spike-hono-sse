@@ -22,17 +22,13 @@ h1 {
   margin-right: auto;
 }
 
-/* Main Component */
-.values {
-  padding: 8px;
-  background: yellow;
+#home {
+  margin: 16px;
 }
 
 .value {
+  background: yellow;
+  padding: 8px;
   margin-top: 10px;
   border-top: 1px dashed black;
-}
-
-.form {
-  margin-top: 20px;
 }
