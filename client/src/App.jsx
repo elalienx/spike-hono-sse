@@ -1,6 +1,5 @@
 // Node modules
 import { useState, useEffect } from "react";
-import axios from "axios";
 
 // Project files
 import "./styles/style.css";
@@ -23,10 +22,18 @@ export default function App() {
   async function onSubmit(event) {
     event.preventDefault();
 
-    await axios.post("/api/values", { value: licence });
+    const endpoint = "/api/values";
+    const item = { value: licence };
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(item),
+    };
 
+    await fetch(endpoint, options);
+
+    setData([...data, licence]);
     setLicence("");
-    setData(...data, licence);
   }
 
   // Components
