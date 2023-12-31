@@ -31,7 +31,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <div id="home">
       <button onClick={getAllNumbers}>Get all numbers</button>
       <br />
       <span className="title">Values</span>

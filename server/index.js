@@ -1,51 +1,46 @@
-const keys = require("./keys");
+// Node modules
+import express from "express";
+import bodyParser from "body-parser";
+import cors from "cors";
+import pkg from "pg";
 
-// Express Application setup
-const express = require("express");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+// Project files
+import keys from "./keys.js";
 
+// Properties
+const { Pool } = pkg;
 const app = express();
-app.use(cors());
-app.use(bodyParser.json());
-
-// Postgres client setup
-const { Pool } = require("pg");
-const pgClient = new Pool({
+const postgressClient = new Pool({
   user: keys.pgUser,
   host: keys.pgHost,
   database: keys.pgDatabase,
   password: keys.pgPassword,
-  port: keys.pgPort
+  port: keys.pgPort,
 });
+const port = 5000;
 
-pgClient.on("connect", client => {
+postgressClient.on("connect", (client) => {
   client
     .query("CREATE TABLE IF NOT EXISTS values (number INT)")
-    .catch(err => console.log("PG ERROR", err));
+    .catch((error) => console.log("PG ERROR", error));
 });
 
-//Express route definitions
-app.get("/", (req, res) => {
-  res.send("Hi");
+app.use(cors());
+app.use(bodyParser.json());
+app.get("/", (request, resolve) => resolve.send("Hi"));
+app.get("/values/all", async (request, resolve) => {
+  const values = await postgressClient.query("SELECT * FROM values");
+
+  resolve.send(values);
 });
+app.post("/values", async (request, resolve) => {
+  // safeguard
+  if (!request.body.value) resolve.send({ working: false });
 
-// get the values
-app.get("/values/all", async (req, res) => {
-  const values = await pgClient.query("SELECT * FROM values");
+  postgressClient.query("INSERT INTO values(number) VALUES($1)", [
+    request.body.value,
+  ]);
 
-  res.send(values);
+  resolve.send({ working: true });
 });
-
-// now the post -> insert value
-app.post("/values", async (req, res) => {
-  if (!req.body.value) res.send({ working: false });
-
-  pgClient.query("INSERT INTO values(number) VALUES($1)", [req.body.value]);
-
-  res.send({ working: true });
-});
-
-app.listen(5000, err => {
-  console.log("Listening");
-});
+app.listen(port, () => console.log(`Listening on port ${port}`));
