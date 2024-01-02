@@ -8,6 +8,7 @@ export default function App() {
   // Local state
   const [data, setData] = useState([]);
   const [licence, setLicence] = useState("");
+  const [status, setStatus] = useState(0); // 0 loading, 1 ready, 2 error
 
   // Properties
   const endpoint = "/api/values"; // 🔔 IMPORTANT: We will use nginx to redirect it to the proper URL
@@ -16,10 +17,23 @@ export default function App() {
   useEffect(() => {
     fetch(`${endpoint}/all`)
       .then((response) => response.json())
-      .then((result) => setData(result.rows.map((row) => row.number)));
+      .then((result) => onSucess(result))
+      .catch((error) => onFailure(error));
   }, []);
 
+  function onSucess(result) {
+    setData(result.rows);
+    setStatus(1);
+  }
+
+  function onFailure(error) {
+    console.error(error);
+    setStatus(2);
+  }
+
   async function onSubmit(event) {
+    event.preventDefault();
+
     const item = { value: licence };
     const options = {
       method: "POST",
@@ -28,21 +42,24 @@ export default function App() {
     };
 
     await fetch(endpoint, options);
-    event.preventDefault();
-    setData([...data, licence]);
+    setData([...data, { number: licence }]);
     setLicence("");
   }
 
   // Components
   const Items = data.map((item, index) => (
     <div key={index} className="item">
-      🚔 {item}
+      🚔 {item.number}
     </div>
   ));
 
+  // Safeguards
+  if (status === 0) return <p>🕒 Loading...</p>;
+  if (status === 2) return <p>❌ Error</p>;
+
   return (
     <div className="App">
-      <h1 className="title">Car licence plates</h1>
+      <h1 className="title">Car licence plates 2</h1>
       {Items}
       <hr />
       <form className="form" onSubmit={(event) => onSubmit(event)}>
