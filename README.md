@@ -14,5 +14,4 @@ The configuration was done combining knowledge of these tutorials:
 ## Installation
 
 It contains Dockerfiles for client, server which you should push to your docker hub to be able
-You can run it in development mode: `docker-compose up --build`
-to pull them down when in next tutorial we will use them in Kubernetes.
+You can run it in development mode: `docker-compose up`
