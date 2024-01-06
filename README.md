@@ -10,6 +10,7 @@ The configuration was done combining knowledge of these tutorials:
 
 - [Dockerizing a React application with Nodejs Postgres and NginX](https://www.youtube.com/watch?v=-pTel5FojAQ&t=35s): Explains how to setup a project with a persistent database and Ngix to avoid using localhost when fetching on the frontend.
 - [How to deploy a multi container Docker compose on Amazon EC2](https://everythingdevops.dev/how-to-deploy-a-multi-container-docker-compose-application-on-amazon-ec2/): To learn how to do Docker compose on the cloud instance. Solution: Install Docker compose on the instance and download the `docker-compose.yml` file by cloning a Git repository.
+- [AWS Load Balancer HTTPS Setup with Route 53 and Certificate Manager & HTTP Redirect to HTTPS](https://www.youtube.com/watch?v=JQP96EjRM98): Step by step tutorial to add all the necesary AWS tools to enable a domain with SSL certificate to enable HTTPS (S for secure)
 
 ## Installation
 
