@@ -1,6 +1,6 @@
 # Docker Expert 🥇
 
-See the deplyed result here: [https://elalienx.com](https://elalienx.com)
+See the deplyed result: [https://elalienx.com](https://elalienx.com)
 
 ## About
 
