@@ -1,7 +1,5 @@
 # Docker Expert 🥇
 
-See the deplyed result: [https://elalienx.com](https://elalienx.com)
-
 ## About
 
 This project creates a more complex configuration by making Docker images for production and development. Furthermore, the project consist of a Nginx HTTP server, a Express backend, a PostgreSQL database, and a React client.
