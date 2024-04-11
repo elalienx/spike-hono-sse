@@ -1,4 +1,4 @@
-# Spike Hono SSE
+# Spike Hono SSE 🦔🔥
 
 ## About
 
