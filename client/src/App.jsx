@@ -7,11 +7,10 @@ import "./styles/style.css";
 export default function App() {
   // Local state
   const [data, setData] = useState([]);
-  const [licence, setLicence] = useState("");
   const [status, setStatus] = useState(0); // 0 loading, 1 ready, 2 error
 
   // Properties
-  const endpoint = "/api/values"; // 🔔 IMPORTANT: We will use nginx to redirect it to the proper URL
+  const endpoint = "/sse"; // 🔔 IMPORTANT: We will use nginx to redirect it to the proper URL
 
   // Methods
   useEffect(() => {
@@ -31,25 +30,10 @@ export default function App() {
     setStatus(2);
   }
 
-  async function onSubmit(event) {
-    event.preventDefault();
-
-    const item = { value: licence };
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(item),
-    };
-
-    await fetch(endpoint, options);
-    setData([...data, { number: licence }]);
-    setLicence("");
-  }
-
   // Components
-  const Items = data.map((item, index) => (
-    <div key={index} className="item">
-      🚔 {item.number}
+  const Items = data.map((item) => (
+    <div key={item.id} className="item">
+      {item.data}
     </div>
   ));
 
@@ -59,20 +43,8 @@ export default function App() {
 
   return (
     <div className="App">
-      <h1 className="title">Car licence plates 2000</h1>
+      <h1 className="title">Spike Hono 🦔🔥</h1>
       {Items}
-      <hr />
-      <form className="form" onSubmit={(event) => onSubmit(event)}>
-        <label>Register new car:</label>
-        <input
-          type="number"
-          placeholder="555"
-          value={licence}
-          required
-          onChange={(event) => setLicence(event.target.value)}
-        />
-        <button>Submit</button>
-      </form>
     </div>
   );
 }
