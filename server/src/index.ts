@@ -1,25 +1,27 @@
 // Node modules
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
-import { streamSSE } from "hono/streaming";
+import { stream, streamSSE } from "hono/streaming";
 
 // Properties
 const app = new Hono();
 const port = 8000;
+let id = 0;
 
-app.get("/", (c) => c.text("Hello Hono!"));
 app.get("/sse", async (c) => {
   return streamSSE(c, async (stream) => {
-    for (let index = 0; index < 5; index++) {
-      const data = `It is ${new Date().toISOString()} in Stockholm.`;
-      const event = "time-update";
-      const id = String(index);
-
-      await stream.writeSSE({ data, event, id });
+    while (id < 5) {
+      const message = `It is ${new Date().toISOString()}`;
+      await stream.writeSSE({
+        data: message,
+        event: "time-update",
+        id: String(id++),
+      });
       await stream.sleep(1000);
     }
   });
 });
+
 console.log(`Server is running on port ${port}`);
 
 serve({ fetch: app.fetch, port });
